@@ -1,0 +1,15 @@
+#!/bin/sh
+echo "Content-type: text/html"
+echo ""
+
+if [ ! -z $1 ]; then
+	# usual way
+	exec $1
+else 
+	# httpd 
+	# FIXME: decode url 
+	# %20: white space
+	# %22: "
+	# %27: '
+	eval ` echo "$QUERY_STRING" | sed "s/%20/ /g" | sed "s/%22/\"/g" | sed "s/%27/'/g" `
+fi
